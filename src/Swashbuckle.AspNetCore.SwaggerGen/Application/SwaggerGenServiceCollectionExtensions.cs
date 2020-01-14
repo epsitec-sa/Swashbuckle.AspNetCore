@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.Conventions.Add(new SwaggerApplicationConvention()));
 
             // Register generator and it's dependencies
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
             services.AddTransient<ISerializerSettingsAccessor, MvcNewtonsoftJsonOptionsAccessor>();
 #else
             services.AddTransient<ISerializerSettingsAccessor, MvcJsonOptionsAccessor>();
@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure(setupAction);
         }
 
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
         private sealed class MvcNewtonsoftJsonOptionsAccessor : ISerializerSettingsAccessor
         {
             private readonly IOptions<MvcNewtonsoftJsonOptions> _options;

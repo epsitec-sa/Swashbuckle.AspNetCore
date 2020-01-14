@@ -50,7 +50,7 @@ namespace Swashbuckle.AspNetCore.SwaggerGen
                 || (stringEnumConverter != null);
 
             var describeInCamelCase = Options.DescribeStringEnumsInCamelCase
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
                 || (stringEnumConverter != null && stringEnumConverter.NamingStrategy is CamelCaseNamingStrategy);
 #else
                 || (stringEnumConverter != null && stringEnumConverter.CamelCaseText);
