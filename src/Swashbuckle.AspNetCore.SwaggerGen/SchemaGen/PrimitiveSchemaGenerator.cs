@@ -50,11 +50,7 @@ namespace Swashbuckle.AspNetCore.SwaggerGen
                 || (stringEnumConverter != null);
 
             var describeInCamelCase = Options.DescribeStringEnumsInCamelCase
-#if NETCOREAPP3_0
                 || (stringEnumConverter != null && stringEnumConverter.NamingStrategy is CamelCaseNamingStrategy);
-#else
-                || (stringEnumConverter != null && stringEnumConverter.CamelCaseText);
-#endif
 
             var enumType = jsonPrimitiveContract.UnderlyingType;
             var enumUnderlyingType = describeAsString ? typeof(string) : enumType.GetEnumUnderlyingType();

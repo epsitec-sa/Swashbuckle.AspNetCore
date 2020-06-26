@@ -20,11 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 c.Conventions.Add(new SwaggerApplicationConvention()));
 
             // Register generator and it's dependencies
-#if NETCOREAPP3_0
             services.AddTransient<ISerializerSettingsAccessor, MvcNewtonsoftJsonOptionsAccessor>();
-#else
-            services.AddTransient<ISerializerSettingsAccessor, MvcJsonOptionsAccessor>();
-#endif
 
             services.AddTransient<ISwaggerProvider, SwaggerGenerator>();
             services.AddTransient<ISchemaGenerator, SchemaGenerator>();
@@ -49,7 +45,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure(setupAction);
         }
 
-#if NETCOREAPP3_0
         private sealed class MvcNewtonsoftJsonOptionsAccessor : ISerializerSettingsAccessor
         {
             private readonly IOptions<MvcNewtonsoftJsonOptions> _options;
@@ -61,18 +56,5 @@ namespace Microsoft.Extensions.DependencyInjection
 
             public JsonSerializerSettings Value => _options.Value?.SerializerSettings;
         }
-#else
-        private sealed class MvcJsonOptionsAccessor : ISerializerSettingsAccessor
-        {
-            private readonly IOptions<MvcJsonOptions> _options;
-
-            public MvcJsonOptionsAccessor(IOptions<MvcJsonOptions> options)
-            {
-                _options = options;
-            }
-
-            public JsonSerializerSettings Value => _options.Value?.SerializerSettings;
-        }
-#endif
     }
 }
